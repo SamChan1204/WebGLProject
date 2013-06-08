@@ -1,0 +1,23 @@
+input{
+	width: 25px;
+}
+
+#load, #subdivision, #texture, #lighting, #rotation, #translation, #scaling{
+	display: none;
+}
+
+#rotation table, #translation table{
+	text-align: center;
+}
+
+#scaling table tr{
+	height: 40px;
+}
+
+.note{
+	font-style: italic;
+}
+
+#writter{
+	margin-right: 30px;
+}

@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Assignment 05</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/as05.css"/>
+</head>
+<body>
+	<div class="navbar navbar-inverse">
+	    <div class="navbar-inner">
+		    <div class="container">
+		    	<span class="brand">Assignment 05</span>
+				<ul class="nav" id="btn-bar">
+					<li><a href="#" id="load-btn">载入模型</a></li>
+					<li><a href="#" id="texture-btn">贴图</a></li>
+					<li><a href="#" id="lighting-btn">光照</a></li>
+				  	<li><a href="#" id="rotate-btn">旋转</a></li>
+				  	<li><a href="#" id="tran-btn">平移</a></li>
+				  	<li><a href="#" id="scale-btn">缩放</a></li>
+				</ul>
+		    </div>
+	    </div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+		    <div class="span3">
+		    	<h4>控制面板</h4>
+		    	<hr/>
+				
+				<div id="load">
+					<strong>选择模型</strong>
+		    		<br/><br/>
+					<input class="input-file" id="model-name" type="file"/>
+					<br/><br/>
+					<button class="btn btn-primary" id="loadModel-btn">载入</button>
+				</div>
+
+				<div id="texture">
+					<strong>贴图选择</strong>
+		    		<br/><br/>
+		    		<button class="btn btn-info" id="texture1">贴图1</button>
+		    		<br/><br/>
+		    		<button class="btn btn-info" id="texture2">贴图2</button>
+		    		<br/><br/>
+		    		<button class="btn btn-primary" id="cancel-texture">关闭贴图</button>
+				</div>
+
+				<div id="lighting">
+					<strong>环境光</strong>
+			    	<button class="btn btn-info" id="ambient-btn">开启</button>
+			    	<br/><br/><br/>
+
+			    	<strong>平行光</strong>
+			    	<button class="btn btn-info" id="parallel-btn">开启</button>
+			    	<br/><br/>
+			    	<div id="parallel-dir">
+			    		<span>来源：</span>
+			    		X：<input type="text" value="1.0" />&nbsp;
+						Y：<input type="text" value="1.0" />&nbsp;
+						Z：<input type="text" value="1.0" />&nbsp;
+			    	</div>
+					<br/><br/>
+
+					<strong>点光源</strong>
+			    	<button class="btn btn-info" id="point-btn">开启</button>
+			    	<br/><br/>
+			    	<div id="point-pos">
+			    		<span>位置：</span>
+			    		X：<input type="text" value="3.0" />&nbsp;
+						Y：<input type="text" value="3.0" />&nbsp;
+						Z：<input type="text" value="3.0" />&nbsp;
+			    	</div>
+					<br/><br/>
+
+					<button class="btn btn-primary" id="turnoff-light-btn">关闭光照</button>
+				</div>
+		    	
+		    	<div id="rotation">
+		    		<strong>旋转方向</strong>
+		    		<p class="note">注：此方向基于模型自身的坐标系</p>
+		    		<br/><br/>
+		    		<table id="rotate-dir">
+		    			<tr>
+			    			<td></td>
+			    			<td><button class="btn btn-info" id="rotate-up">上</button></td>
+			    			<td></td>
+		    			</tr>
+		    			<tr>
+			    			<td><button class="btn btn-info" id="rotate-left">左</button></td>
+			    			<td></td>
+			    			<td><button class="btn btn-info" id="rotate-right">右</button></td>
+		    			</tr>
+		    			<tr>
+			    			<td></td>
+			    			<td><button class="btn btn-info" id="rotate-down">下</button></td>
+			    			<td></td>
+		    			</tr>
+		    			<tr>
+			    			<td><button class="btn btn-info" id="rotate-acw">逆时针</button></td>
+			    			<td></td>
+			    			<td><button class="btn btn-info" id="rotate-cw">顺时针</button></td>
+		    			</tr>
+		    		</table>
+		    		<br/>
+		    		<button class="btn btn-primary" id="cancel-rotate">复原</button>
+		    	</div>
+
+		    	<div id="translation">
+		    		<strong>平移方向</strong>
+		    		<br/><br/>
+		    		<table id="tran-dir">
+		    			<tr>
+			    			<td></td>
+			    			<td><button class="btn btn-info" id="tran-up">上</button></td>
+			    			<td></td>
+		    			</tr>
+		    			<tr>
+			    			<td><button class="btn btn-info" id="tran-left">左</button></td>
+			    			<td></td>
+			    			<td><button class="btn btn-info" id="tran-right">右</button></td>
+		    			</tr>
+		    			<tr>
+			    			<td></td>
+			    			<td><button class="btn btn-info" id="tran-down">下</button></td>
+			    			<td></td>
+		    			</tr>
+		    			<tr>
+			    			<td><button class="btn btn-info" id="tran-front">前</button></td>
+			    			<td></td>
+			    			<td><button class="btn btn-info" id="tran-back">后</button></td>
+		    			</tr>
+		    		</table>
+		    		<br/>
+					<button class="btn btn-primary" id="cancel-tran">复原</button>
+		    	</div>
+
+		    	<div id="scaling">
+		    		<strong>缩放方向</strong>
+		    		<br/><br/>
+		    		<table>
+		    			<tr>
+		    				<td>X轴：</td>
+		    				<td>
+		    					<button class="btn btn-info" id="scale-x-big">放大</button>&nbsp;
+		    					<button class="btn btn-info" id="scale-x-small">缩小</button>&nbsp;
+		    				</td>
+		    			</tr>
+		    			<tr>
+		    				<td>Y轴：</td>
+		    				<td>
+		    					<button class="btn btn-info" id="scale-y-big">放大</button>&nbsp;
+		    					<button class="btn btn-info" id="scale-y-small">缩小</button>&nbsp;
+		    				</td>
+		    			</tr>
+		    			<tr>
+		    				<td>Z轴：</td>
+		    				<td>
+		    					<button class="btn btn-info" id="scale-z-big">放大</button>&nbsp;
+		    					<button class="btn btn-info" id="scale-z-small">缩小</button>&nbsp;
+		    				</td>
+		    			</tr>
+		    			<tr>
+		    				<td>等比例：</td>
+		    				<td>
+		    					<button class="btn btn-info" id="scale-all-big">放大</button>&nbsp;
+		    					<button class="btn btn-info" id="scale-all-small">缩小</button>&nbsp;
+		    				</td>
+		    			</tr>
+		    		</table>
+		    		<button class="btn btn-primary" id="cancel-scale">复原</button>
+		    	</div>
+
+		    </div>
+		    <div class="span9">
+		    	<canvas height="550" width="850" id="canvas"></canvas>
+		    </div>
+	  	</div>
+	</div>
+
+	<hr/>
+	<span id="writter" class="pull-right">Produced by <a href="http://weibo.com/archer91119">Sam Chan</a></span>
+
+	<script type="text/javascript" src="js/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/Oak3D_v_0_5.js"></script>
+
+	<script id="per-fragment-lighting-fs" type="x-shader/x-fragment">
+
+		//片元着色器
+	    precision mediump float;
+
+
+	    varying vec2 vTextureCoord;
+	    varying vec3 vTransformedNormal;
+	    varying vec4 vPosition;
+
+	    uniform bool uUseAmbient;
+	    uniform bool uUseParallel;
+	    uniform bool uUsePoint;
+	    uniform bool uUseTextures;
+
+	    uniform vec3 uAmbientColor;
+
+	    uniform vec3 uParallelLightingDirection;
+	    uniform vec3 uParallelLightingDiffuseColor;
+
+	    uniform vec3 uPointLightingLocation;
+	    uniform vec3 uPointLightingDiffuseColor;
+
+	    uniform sampler2D uSampler;
+
+
+	    void main(void) {
+
+	    	//计算光照
+	        vec3 lightWeighting;
+	        if (!(uUseAmbient || uUseParallel || uUsePoint)) {
+	            lightWeighting = vec3(1.0, 1.0, 1.0);
+	        } else {
+	        	lightWeighting = vec3(0.0, 0.0, 0.0);
+
+	        	//光照方向
+	            vec3 pointLightDirection = normalize(uPointLightingLocation - vPosition.xyz);
+	            vec3 parallelLightDirection = normalize(uParallelLightingDirection);
+
+	            //法线向量
+	            vec3 normal = normalize(vTransformedNormal);
+
+	            //结合光照方向和法线计算该点光照强度
+	            float pointDiffuseLightWeighting = max(dot(normal, pointLightDirection), 0.0);
+	            float parallelDiffuseLightWeighting = max(dot(normal, parallelLightDirection), 0.0);
+
+	            //计算该点光照颜色
+	            if(uUseAmbient){
+	            	lightWeighting += uAmbientColor;
+	            }
+	            if(uUseParallel){
+	            	lightWeighting += uParallelLightingDiffuseColor * parallelDiffuseLightWeighting;
+	            }
+	            if(uUsePoint){
+	            	lightWeighting += uPointLightingDiffuseColor * pointDiffuseLightWeighting;
+	            }
+	        }
+
+	        //计算贴图
+	        vec4 fragmentColor;
+	        if (uUseTextures) {
+	            fragmentColor = texture2D(uSampler, vec2(vTextureCoord.s, vTextureCoord.t));
+	        } else {
+	            fragmentColor = vec4(1.0, 1.0, 1.0, 1.0);
+	        }
+	        gl_FragColor = vec4(fragmentColor.rgb * lightWeighting, fragmentColor.a);
+	    }
+	</script>
+
+	<script id="per-fragment-lighting-vs" type="x-shader/x-vertex">
+
+		//顶点着色器
+	    attribute vec3 aVertexPosition;
+	    attribute vec3 aVertexNormal;
+	    attribute vec2 aTextureCoord;
+
+	    uniform mat4 uMVMatrix;
+	    uniform mat4 uPMatrix;
+	    uniform mat4 uNMatrix;
+
+	    varying vec2 vTextureCoord;
+	    varying vec3 vTransformedNormal;
+	    varying vec4 vPosition;
+
+
+	    void main(void) {
+	        vPosition = uMVMatrix * vec4(aVertexPosition, 1.0);
+	        gl_Position = uPMatrix * vPosition;
+	        vTextureCoord = aTextureCoord;
+	        vTransformedNormal = (uNMatrix * vec4(aVertexNormal , 1.0)).xyz;
+	    }
+	</script>
+
+	<script type="text/javascript" src="js/webGLFunctions.js"></script>
+	<script type="text/javascript" src="js/eventFunctions.js"></script>
+	<script type="text/javascript" src="js/as05.js"></script>
+</body>
+</html>
